@@ -1,34 +1,34 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { NICHES, CITIES } from '@/lib/niches'
+import { SERVICES } from '@/lib/services'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
 
-// В Next.js 15 params — это Promise, поэтому везде await params
 interface Props {
-  params: Promise<{ slug: string; city: string }>
+  params: Promise<{ niche: string; city: string }>
 }
 
-// Генерирует все 200 страниц (10 ниш × 20 городов) за один билд
 export async function generateStaticParams() {
   return NICHES.flatMap((niche) =>
     CITIES.map((city) => ({
-      slug: niche.slug,
+      niche: niche.slug,
       city: city.slug,
     }))
   )
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug, city: citySlug } = await params
-  const niche = NICHES.find((n) => n.slug === slug)
+  const { niche: nicheSlug, city: citySlug } = await params
+  const niche = NICHES.find((n) => n.slug === nicheSlug)
   const city = CITIES.find((c) => c.slug === citySlug)
   if (!niche || !city) return {}
 
   const title = `Сайт для ${niche.name} в ${city.name} — под ключ за 7 дней`
 
   return {
-    title,
+    title: `${title} — Кирилл Ткаченко`,
     description: `Разработка сайта для ${niche.name} в ${city.name}. ИИ-инструменты, срок до 7 дней, цена от 30 000 ₽. ${niche.pain}`,
     keywords: [
       `сайт для ${niche.nameShort.toLowerCase()} в ${city.nameRod}`,
@@ -45,8 +45,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function NicheCityPage({ params }: Props) {
-  const { slug, city: citySlug } = await params
-  const niche = NICHES.find((n) => n.slug === slug)
+  const { niche: nicheSlug, city: citySlug } = await params
+  const niche = NICHES.find((n) => n.slug === nicheSlug)
   const city = CITIES.find((c) => c.slug === citySlug)
   if (!niche || !city) notFound()
 
@@ -59,7 +59,6 @@ export default async function NicheCityPage({ params }: Props) {
           [ {city.nameRod} · {niche.nameShort} ]
         </div>
 
-        {/* H1 — главный SEO-заголовок с ключевым словом */}
         <h1 className="font-display font-black text-4xl lg:text-7xl text-light uppercase leading-tight mb-8">
           Сайт для {niche.name}<br />
           в <span className="text-accent">{city.name}</span><br />
@@ -83,7 +82,7 @@ export default async function NicheCityPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Блок «Что входит» */}
+      {/* Что входит */}
       <section className="py-24 px-6 lg:px-12 border-t border-border">
         <h2 className="font-display text-3xl text-light uppercase mb-12">
           Что входит в сайт для {niche.name}
@@ -104,22 +103,33 @@ export default async function NicheCityPage({ params }: Props) {
           Стоимость сайта для {niche.name} в {city.name}
         </h2>
         <div className="flex flex-col border-t border-border">
-          {[
-            { name: 'Лендинг',           price: 'от 30 000 ₽', time: '5 дней'  },
-            { name: 'Многостраничный',   price: 'от 60 000 ₽', time: '10 дней' },
-            { name: 'С ИИ-шаблоном',    price: 'от 40 000 ₽', time: '7 дней'  },
-          ].map((t, i) => (
-            <div
+          {SERVICES.slice(0, 3).map((service, i) => (
+            <Link
               key={i}
-              className="flex flex-col md:flex-row md:items-center justify-between py-6 border-b border-border"
+              href={`/uslugi/${service.slug}/${nicheSlug}`}
+              className="flex flex-col md:flex-row md:items-center justify-between py-6 border-b border-border hover:bg-surface transition-colors px-4 -mx-4"
             >
-              <span className="font-display text-2xl text-light uppercase">{t.name}</span>
+              <span className="font-display text-2xl text-light uppercase">{service.name}</span>
               <div className="flex items-center gap-8 mt-2 md:mt-0">
-                <span className="font-mono text-sm text-light/50">{t.time}</span>
-                <span className="font-mono text-sm text-accent">{t.price}</span>
+                <span className="font-mono text-sm text-light/50">{service.time}</span>
+                <span className="font-mono text-sm text-accent">{service.price}</span>
+                <span className="font-mono text-xs text-light/20 uppercase tracking-wider">Подробнее →</span>
               </div>
-            </div>
+            </Link>
           ))}
+        </div>
+      </section>
+
+      {/* Хлебные крошки */}
+      <section className="py-12 px-6 lg:px-12 border-t border-border">
+        <div className="flex flex-wrap gap-4 items-center font-mono text-xs text-light/40 uppercase tracking-wider">
+          <Link href="/" className="hover:text-accent transition-colors">Главная</Link>
+          <span>→</span>
+          <Link href={`/dlya/${nicheSlug}`} className="hover:text-accent transition-colors">
+            Сайт для {niche.nameShort.toLowerCase()}
+          </Link>
+          <span>→</span>
+          <span className="text-accent">{city.name}</span>
         </div>
       </section>
 
