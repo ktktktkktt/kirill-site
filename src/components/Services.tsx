@@ -2,15 +2,8 @@
 
 import { useEffect, useRef } from 'react'
 import { ArrowRight } from 'lucide-react'
-
-const SERVICES = [
-  { num: '01', name: 'ЛЕНДИНГ ПОД КЛЮЧ',    price: 'от 30 000 ₽',  time: '5 дней'  },
-  { num: '02', name: 'КОРПОРАТИВНЫЙ САЙТ',  price: 'от 60 000 ₽',  time: '10 дней' },
-  { num: '03', name: 'САЙТ С ИИ-ШАБЛОНОМ', price: 'от 40 000 ₽',  time: '7 дней'  },
-  { num: '04', name: 'ИНТЕРНЕТ-МАГАЗИН',    price: 'от 80 000 ₽',  time: '14 дней' },
-  { num: '05', name: 'РЕДИЗАЙН САЙТА',      price: 'от 35 000 ₽',  time: '7 дней'  },
-  { num: '06', name: 'УПАКОВКА ПОД КЛЮЧ',   price: 'от 110 000 ₽', time: '21 день' },
-]
+import Link from 'next/link'
+import { SERVICES } from '@/lib/services'
 
 export function Services() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -67,14 +60,17 @@ export function Services() {
 
       <div className="flex flex-col border-t border-border">
         {SERVICES.map((srv, i) => (
-          <div
-            key={i}
+          <Link
+            key={srv.slug}
+            href={`/uslugi/${srv.slug}`}
             className="service-row group flex flex-col md:flex-row md:items-center justify-between py-8 border-b border-border hover:bg-surface transition-colors duration-500 cursor-pointer px-4 -mx-4"
           >
             <div className="flex items-center gap-8 mb-4 md:mb-0 w-full md:w-1/2">
-              <span className="font-mono text-sm text-light/30 w-8">{srv.num}</span>
+              <span className="font-mono text-sm text-light/30 w-8">
+                {String(i + 1).padStart(2, '0')}
+              </span>
               <h3 className="font-display text-xl lg:text-3xl text-light uppercase group-hover:text-accent transition-colors duration-300">
-                {srv.name}
+                {srv.nameFull}
               </h3>
             </div>
 
@@ -96,7 +92,7 @@ export function Services() {
                 />
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

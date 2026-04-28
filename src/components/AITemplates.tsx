@@ -46,23 +46,34 @@ export function AITemplates() {
 
         const getScrollAmount = () => {
           const wrapperWidth = wrapperRef.current?.scrollWidth || 0
-          return -(wrapperWidth - window.innerWidth)
+          return Math.max(0, wrapperWidth - window.innerWidth)
         }
 
         const tween = gsap.to(wrapperRef.current, {
-          x: getScrollAmount,
+          x: () => -getScrollAmount(),
           ease: 'none',
         })
 
-        ScrollTrigger.create({
+        const trigger = ScrollTrigger.create({
           trigger: sectionRef.current,
           start: 'top top',
-          end: () => `+=${getScrollAmount() * -1}`,
+          end: () => `+=${getScrollAmount()}`,
           pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
           animation: tween,
           scrub: 1,
           invalidateOnRefresh: true,
         })
+
+        const refresh = () => ScrollTrigger.refresh()
+        requestAnimationFrame(refresh)
+        window.addEventListener('load', refresh)
+
+        return () => {
+          window.removeEventListener('load', refresh)
+          trigger.kill()
+        }
       }, sectionRef)
 
       return () => ctx.revert()
@@ -77,7 +88,7 @@ export function AITemplates() {
   return (
     <section
       ref={sectionRef}
-      className="h-screen bg-surface overflow-hidden flex flex-col justify-center relative"
+      className="min-h-screen bg-surface overflow-hidden flex flex-col justify-center relative z-10"
     >
       <div className="absolute top-12 left-6 lg:left-12 z-10">
         <div className="font-mono text-xs text-accent uppercase tracking-widest mb-4">
@@ -91,7 +102,7 @@ export function AITemplates() {
         </p>
       </div>
 
-      <div ref={wrapperRef} className="flex gap-12 px-6 lg:px-12 w-max items-center h-full pt-20">
+      <div ref={wrapperRef} className="flex gap-12 px-6 lg:px-12 w-max items-center h-full pt-20 will-change-transform">
         {TEMPLATES.map((tpl, i) => (
           <div
             key={i}

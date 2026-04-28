@@ -71,7 +71,7 @@ export function FooterCTA() {
     <section
       id="contact"
       ref={containerRef}
-      className="py-48 px-6 lg:px-12 bg-bg flex flex-col items-center justify-center text-center border-t border-border"
+      className="pt-48 pb-20 px-6 lg:px-12 bg-bg flex flex-col items-center justify-center text-center border-t border-border"
     >
       <h2
         ref={titleRef}
