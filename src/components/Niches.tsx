@@ -5,29 +5,34 @@ import {
   HardHat,
   PaintRoller,
   Sofa,
+  Building2,
   Wrench,
   Utensils,
   Stethoscope,
   Dumbbell,
   Scale,
+  Brain,
   Leaf,
   Smartphone,
 } from 'lucide-react'
 import Link from 'next/link'
+import { NICHES } from '@/lib/niches'
 
-// Slug-и соответствуют будущим нишевым страницам /niche/[slug]
-const NICHES = [
-  { icon: HardHat,      name: 'Строительные компании', slug: 'stroitelnye-kompanii', num: '01' },
-  { icon: PaintRoller,  name: 'Ремонт квартир',         slug: 'remont-kvartir',        num: '02' },
-  { icon: Sofa,         name: 'Дизайн интерьеров',      slug: 'dizain-interierov',     num: '03' },
-  { icon: Wrench,       name: 'Автосервисы',             slug: 'avtoservisy',           num: '04' },
-  { icon: Utensils,     name: 'Рестораны и кафе',        slug: 'restorany',             num: '05' },
-  { icon: Stethoscope,  name: 'Стоматологии',            slug: 'stomatologii',          num: '06' },
-  { icon: Dumbbell,     name: 'Фитнес-клубы',            slug: 'fitnes-kluby',          num: '07' },
-  { icon: Scale,        name: 'Юридические услуги',      slug: 'yuridicheskie-uslugi',  num: '08' },
-  { icon: Leaf,         name: 'Ландшафтный дизайн',      slug: 'landshaftny-dizain',    num: '09' },
-  { icon: Smartphone,   name: 'Ремонт техники',           slug: 'remont-tekhniki',       num: '10' },
-]
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ICON_MAP: Record<string, React.ComponentType<any>> = {
+  HardHat,
+  PaintRoller,
+  Sofa,
+  Building2,
+  Wrench,
+  Utensils,
+  Stethoscope,
+  Dumbbell,
+  Scale,
+  Brain,
+  Leaf,
+  Smartphone,
+}
 
 export function Niches() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -93,32 +98,33 @@ export function Niches() {
         </p>
       </div>
 
-      {/* SEO: все ниши — живые ссылки на нишевые страницы */}
       <div
         ref={gridRef}
-        className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-px bg-border"
+        className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-px bg-border"
       >
-        {NICHES.map((niche) => {
-          const Icon = niche.icon
+        {NICHES.map((niche, i) => {
+          const Icon = ICON_MAP[niche.icon]
           return (
             <Link
               key={niche.slug}
-              href={`/niche/${niche.slug}`}
+              href={`/dlya/${niche.slug}`}
               className="niche-card bg-bg p-6 lg:p-8 flex flex-col justify-between group hover:bg-surface transition-colors duration-300 min-h-[200px] lg:min-h-[220px]"
             >
               <div className="flex items-start justify-between mb-6">
                 <span className="font-mono text-[10px] text-light/20 uppercase tracking-widest">
-                  {niche.num}
+                  {String(i + 1).padStart(2, '0')}
                 </span>
-                <Icon
-                  strokeWidth={1}
-                  size={28}
-                  className="text-light/20 group-hover:text-accent transition-colors duration-300"
-                />
+                {Icon && (
+                  <Icon
+                    strokeWidth={1}
+                    size={28}
+                    className="text-light/20 group-hover:text-accent transition-colors duration-300"
+                  />
+                )}
               </div>
               <div>
                 <h3 className="font-display text-sm lg:text-base text-light uppercase leading-snug mb-3">
-                  {niche.name}
+                  {niche.nameShort}
                 </h3>
                 <div className="font-mono text-[10px] text-light/20 group-hover:text-accent transition-colors duration-300 flex items-center gap-1.5 uppercase tracking-wider">
                   Примеры{' '}

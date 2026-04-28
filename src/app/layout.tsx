@@ -23,6 +23,7 @@ const unbounded = Unbounded({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://YOUR-DOMAIN.ru'),
   title: 'Кирилл Ткаченко — Сайт за 7 дней с помощью ИИ',
   description:
     'Разработка сайтов для малого бизнеса под ключ. 5+ лет опыта, ИИ-инструменты, срок до 7 дней. Строительные компании, автосервисы, рестораны и другие ниши.',
