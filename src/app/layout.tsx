@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Space_Mono, Unbounded } from 'next/font/google'
 import './globals.css'
+import { Preloader } from '@/components/Preloader'
 
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
@@ -50,7 +51,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru" className={`${inter.variable} ${spaceMono.variable} ${unbounded.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Preloader />
+        {children}
+      </body>
     </html>
   )
 }

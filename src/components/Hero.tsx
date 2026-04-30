@@ -20,14 +20,17 @@ const WORK_IMAGES = [
   },
 ]
 
+type WinWithFlag = typeof window & { __preloaderDone?: boolean }
+
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
   const title1Ref = useRef<HTMLSpanElement>(null)
   const title2Ref = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    // Динамический импорт GSAP только на клиенте
-    const initGsap = async () => {
+    let ctx: import('gsap').Context | null = null
+
+    const runAnimation = async () => {
       const { default: gsap } = await import('gsap')
 
       const splitText = (element: HTMLElement) => {
@@ -35,7 +38,7 @@ export function Hero() {
         element.innerHTML = ''
         text.split('').forEach((char) => {
           const span = document.createElement('span')
-          span.innerText = char === ' ' ? '\u00A0' : char
+          span.innerText = char === ' ' ? ' ' : char
           span.style.display = 'inline-block'
           span.style.transform = 'translateY(100%)'
           span.style.opacity = '0'
@@ -44,10 +47,12 @@ export function Hero() {
         return element.querySelectorAll('span')
       }
 
-      const ctx = gsap.context(() => {
+      ctx = gsap.context(() => {
         if (title1Ref.current && title2Ref.current) {
           const chars1 = splitText(title1Ref.current)
           const chars2 = splitText(title2Ref.current)
+          // splitText puts chars inside — parent wrapper must be visible
+          gsap.set([title1Ref.current, title2Ref.current], { opacity: 1 })
 
           const tl = gsap.timeline()
           tl.to([...chars1, ...chars2], {
@@ -56,7 +61,7 @@ export function Hero() {
             duration: 0.8,
             stagger: 0.02,
             ease: 'power4.out',
-            delay: 0.2,
+            delay: 0.1,
           })
         }
 
@@ -69,7 +74,7 @@ export function Hero() {
             duration: 0.9,
             stagger: 0.15,
             ease: 'power3.out',
-            delay: 0.6,
+            delay: 0.4,
           }
         )
 
@@ -82,18 +87,28 @@ export function Hero() {
             duration: 0.8,
             stagger: 0.1,
             ease: 'power2.out',
-            delay: 1.2,
+            delay: 0.9,
           }
         )
       }, containerRef)
-
-      return () => ctx.revert()
     }
 
-    const cleanup = initGsap()
-    return () => {
-      cleanup.then((fn) => fn?.())
+    if ((window as WinWithFlag).__preloaderDone) {
+      // Preloader already finished (e.g. client-side navigation back to homepage)
+      runAnimation()
+    } else {
+      const onDone = () => {
+        ;(window as WinWithFlag).__preloaderDone = true
+        runAnimation()
+      }
+      window.addEventListener('preloader:done', onDone, { once: true })
+      return () => {
+        window.removeEventListener('preloader:done', onDone)
+        ctx?.revert()
+      }
     }
+
+    return () => { ctx?.revert() }
   }, [])
 
   return (
@@ -103,7 +118,7 @@ export function Hero() {
     >
       {/* ── LEFT: Text ── */}
       <div className="w-full lg:w-[55%] flex flex-col justify-center z-10 pb-16 lg:pb-0 pr-0 lg:pr-16">
-        <div className="mb-6 font-mono text-xs tracking-widest text-light/40 uppercase hero-ui">
+        <div className="mb-6 font-mono text-xs tracking-widest text-light/40 uppercase hero-ui" style={{ opacity: 0 }}>
           [ Веб-разработка · ИИ · 2025 ]
         </div>
 
@@ -111,20 +126,20 @@ export function Hero() {
           className="font-display font-black text-5xl md:text-6xl lg:text-[5.5vw] leading-[0.88] text-light uppercase mb-10 flex flex-col"
           style={{ clipPath: 'polygon(0 0, 100% 0, 100% 110%, 0 110%)' }}
         >
-          <span ref={title1Ref} className="block overflow-hidden">
+          <span ref={title1Ref} className="block overflow-hidden" style={{ opacity: 0 }}>
             САЙТ /
           </span>
-          <span ref={title2Ref} className="block overflow-hidden">
+          <span ref={title2Ref} className="block overflow-hidden" style={{ opacity: 0 }}>
             ЗА 7 ДНЕЙ
           </span>
         </h1>
 
-        <p className="font-body text-sm text-light/50 max-w-sm mb-10 hero-ui leading-relaxed">
+        <p className="font-body text-sm text-light/50 max-w-sm mb-10 hero-ui leading-relaxed" style={{ opacity: 0 }}>
           Разрабатываю продающие сайты для малого бизнеса — быстро,
           с упором на маркетинг, без компромиссов по дизайну.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-6 items-start hero-ui">
+        <div className="flex flex-col sm:flex-row gap-6 items-start hero-ui" style={{ opacity: 0 }}>
           <a
             href="#contact"
             className="bg-accent text-bg font-mono text-xs uppercase tracking-widest py-4 px-8 flex items-center gap-3 hover:bg-light transition-colors duration-300"
@@ -141,7 +156,7 @@ export function Hero() {
         </div>
 
         {/* Stats */}
-        <div className="flex gap-10 mt-14 hero-ui border-t border-card pt-8">
+        <div className="flex gap-10 mt-14 hero-ui border-t border-card pt-8" style={{ opacity: 0 }}>
           {[
             { num: '50+', label: 'Проектов' },
             { num: '5+', label: 'Лет опыта' },
@@ -162,7 +177,7 @@ export function Hero() {
         {/* Top image */}
         <div
           className="hero-work-img relative w-full overflow-hidden bg-card"
-          style={{ height: '52%', minHeight: '240px' }}
+          style={{ height: '52%', minHeight: '240px', opacity: 0 }}
         >
           <Image
             src={WORK_IMAGES[0].src}
@@ -178,7 +193,7 @@ export function Hero() {
         {/* Bottom row */}
         <div className="flex gap-3" style={{ height: '48%', minHeight: '180px' }}>
           {[WORK_IMAGES[1], WORK_IMAGES[2]].map((img, i) => (
-            <div key={i} className="hero-work-img relative flex-1 overflow-hidden bg-card">
+            <div key={i} className="hero-work-img relative flex-1 overflow-hidden bg-card" style={{ opacity: 0 }}>
               <Image
                 src={img.src}
                 alt={img.label}
@@ -193,7 +208,7 @@ export function Hero() {
         </div>
 
         {/* Stack badge */}
-        <div className="hero-ui border border-card bg-surface px-5 py-4 flex items-center justify-between">
+        <div className="hero-ui border border-card bg-surface px-5 py-4 flex items-center justify-between" style={{ opacity: 0 }}>
           <div>
             <div className="font-mono text-[9px] text-accent uppercase tracking-widest mb-1">
               Stack

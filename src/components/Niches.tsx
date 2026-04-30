@@ -39,6 +39,8 @@ export function Niches() {
   const gridRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    let ctx: import('gsap').Context | null = null
+
     const initGsap = async () => {
       const { default: gsap } = await import('gsap')
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
@@ -47,42 +49,50 @@ export function Niches() {
       const grid = gridRef.current
       if (!grid) return
 
+      // Skip animation on mobile
+      if (window.innerWidth < 768) return
+
       const cards = grid.querySelectorAll<HTMLElement>('.niche-card')
+      if (!cards.length) return
 
-      const anim = gsap.fromTo(
-        cards,
-        { y: 32, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.55,
-          stagger: 0.06,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: grid,
-            start: 'top 82%',
-            once: true,
-          },
-        }
-      )
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          cards,
+          { y: 32, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.55,
+            stagger: 0.06,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: grid,
+              start: 'top 82%',
+              once: true,
+              invalidateOnRefresh: true,
+            },
+          }
+        )
+      }, grid)
 
-      return () => {
-        anim.kill()
-        ScrollTrigger.getAll().forEach((t) => {
-          if (t.trigger === grid) t.kill()
-        })
-      }
+      requestAnimationFrame(() => ScrollTrigger.refresh())
+
+      const onLoad = () => ScrollTrigger.refresh()
+      window.addEventListener('load', onLoad)
+      return () => window.removeEventListener('load', onLoad)
     }
 
-    const cleanup = initGsap()
+    const cleanupPromise = initGsap()
+
     return () => {
-      cleanup.then((fn) => fn?.())
+      ctx?.revert()
+      cleanupPromise.then((fn) => fn?.())
     }
   }, [])
 
   return (
-    <section id="ниши" ref={containerRef} className="py-24 px-6 lg:px-12 bg-bg">
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+    <section id="ниши" ref={containerRef} className="py-16 md:py-24 px-6 lg:px-12 bg-bg">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-4 md:gap-6">
         <div>
           <div className="font-mono text-xs text-accent uppercase tracking-widest mb-4">
             [ 03 — Ниши ]
@@ -108,25 +118,25 @@ export function Niches() {
             <Link
               key={niche.slug}
               href={`/dlya/${niche.slug}`}
-              className="niche-card bg-bg p-6 lg:p-8 flex flex-col justify-between group hover:bg-surface transition-colors duration-300 min-h-[200px] lg:min-h-[220px]"
+              className="niche-card bg-bg p-4 md:p-6 lg:p-8 flex flex-col justify-between group hover:bg-surface transition-colors duration-300 min-h-[160px] md:min-h-[200px] lg:min-h-[220px]"
             >
-              <div className="flex items-start justify-between mb-6">
+              <div className="flex items-start justify-between mb-3 md:mb-6">
                 <span className="font-mono text-[10px] text-light/20 uppercase tracking-widest">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 {Icon && (
                   <Icon
                     strokeWidth={1}
-                    size={28}
-                    className="text-light/20 group-hover:text-accent transition-colors duration-300"
+                    size={22}
+                    className="text-light/20 group-hover:text-accent transition-colors duration-300 md:w-7 md:h-7"
                   />
                 )}
               </div>
               <div>
-                <h3 className="font-display text-sm lg:text-base text-light uppercase leading-snug mb-3">
+                <h3 className="font-display text-xs md:text-sm lg:text-base text-light uppercase leading-snug mb-2 md:mb-3">
                   {niche.nameShort}
                 </h3>
-                <div className="font-mono text-[10px] text-light/20 group-hover:text-accent transition-colors duration-300 flex items-center gap-1.5 uppercase tracking-wider">
+                <div className="font-mono text-[9px] md:text-[10px] text-light/20 group-hover:text-accent transition-colors duration-300 flex items-center gap-1 uppercase tracking-wider">
                   Примеры{' '}
                   <span className="group-hover:translate-x-1 transition-transform duration-300 inline-block">
                     →

@@ -35,7 +35,7 @@ export default function AboutPage() {
         <h2 className="font-display text-3xl text-light uppercase mb-8">
           Подход к работе
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-bg">
           {[
             'Сначала разбираю бизнес, спрос и сценарии клиента.',
             'Затем собираю структуру, где каждый блок ведет к заявке.',

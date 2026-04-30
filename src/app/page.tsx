@@ -6,6 +6,8 @@ import { Niches } from '@/components/Niches'
 import { Cases } from '@/components/Cases'
 import { AITemplates } from '@/components/AITemplates'
 import { Process } from '@/components/Process'
+import { AboutMe } from '@/components/AboutMe'
+import { HomeFAQ } from '@/components/HomeFAQ'
 import { FooterCTA } from '@/components/FooterCTA'
 
 export default function HomePage() {
@@ -19,6 +21,8 @@ export default function HomePage() {
       <Cases />
       <AITemplates />
       <Process />
+      <AboutMe />
+      <HomeFAQ />
       <FooterCTA />
     </main>
   )

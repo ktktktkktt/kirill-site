@@ -69,7 +69,7 @@ export default async function NichePage({ params }: Props) {
         <h2 className="font-display text-3xl text-light uppercase mb-12">
           Особенности сайта для {niche.nameShort.toLowerCase()}
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-bg">
           {niche.features.map((feature, i) => (
             <div key={i} className="bg-bg p-8 flex items-center gap-6">
               <span className="font-mono text-xs text-accent">0{i + 1}</span>
@@ -102,7 +102,7 @@ export default async function NichePage({ params }: Props) {
         <h2 className="font-display text-3xl text-light uppercase mb-12">
           Какой сайт нужен {niche.nameShort.toLowerCase()}?
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-bg">
           {SERVICES.map((service) => (
             <Link
               key={service.slug}

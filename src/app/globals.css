@@ -17,6 +17,7 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden; /* prevents horizontal overflow from expanding viewport width */
   }
 
   body {
@@ -26,6 +27,15 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  html.menu-open {
+    overflow: hidden;
   }
 
   ::selection {

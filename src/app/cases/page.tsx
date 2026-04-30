@@ -37,7 +37,7 @@ export default function CasesPage() {
       <section className="pb-24 px-6 lg:px-12">
         <div className="grid grid-cols-1 gap-12">
           {CASES.map((item) => (
-            <article key={item.slug} className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-border">
+            <article key={item.slug} className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-bg">
               <div className="relative min-h-[360px] bg-card">
                 <Image
                   src={item.image}

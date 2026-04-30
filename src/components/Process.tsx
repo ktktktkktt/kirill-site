@@ -61,7 +61,7 @@ export function Process() {
           )
         }
 
-        if (lines) {
+        if (lines && window.innerWidth >= 1024) {
           gsap.fromTo(
             lines,
             { scaleX: 0 },
@@ -90,8 +90,8 @@ export function Process() {
   }, [])
 
   return (
-    <section ref={containerRef} className="py-24 px-6 lg:px-12 bg-bg overflow-hidden">
-      <div className="mb-20">
+    <section ref={containerRef} className="py-16 md:py-24 px-6 lg:px-12 bg-bg overflow-hidden">
+      <div className="mb-12 md:mb-20">
         <div className="font-mono text-xs text-accent uppercase tracking-widest mb-4">
           [ 06 — Процесс ]
         </div>
@@ -99,29 +99,36 @@ export function Process() {
       </div>
 
       <div className="relative">
-        {/* Connecting lines */}
+        {/* Connecting line — desktop only */}
         <div className="process-line absolute top-8 left-0 w-full h-[1px] bg-border hidden lg:block" />
         <div
           className="process-line absolute top-8 left-0 w-full h-[1px] bg-accent/20 hidden lg:block"
           style={{ transformOrigin: 'left' }}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-0 lg:gap-8 relative z-10">
           {STEPS.map((step, i) => (
-            <div key={i} className="process-step flex flex-col relative">
+            <div key={i} className="process-step flex lg:flex-col relative">
+              {/* Vertical connector line between steps — mobile only */}
               {i !== STEPS.length - 1 && (
-                <div className="absolute left-8 top-16 w-[1px] h-full bg-border lg:hidden" />
+                <div className="absolute left-8 top-16 w-[1px] bottom-0 bg-border lg:hidden" />
               )}
 
-              <div className="w-16 h-16 rounded-full bg-surface border border-border flex items-center justify-center font-mono text-xl text-accent mb-8 z-10 shrink-0 relative hover:border-accent hover:bg-accent hover:text-bg transition-all">
+              {/* Step circle */}
+              <div className="w-16 h-16 rounded-full bg-surface border border-border flex items-center justify-center font-mono text-xl text-accent shrink-0 z-10 hover:border-accent hover:bg-accent hover:text-bg transition-all">
                 {step.num}
               </div>
 
-              <div className="flex-grow pl-20 lg:pl-0 -mt-20 lg:mt-0 pt-20 lg:pt-0">
-                <h3 className="font-display text-lg text-light uppercase mb-4 h-auto lg:h-12">
+              {/* Content */}
+              <div className="pl-8 pb-10 lg:pl-0 lg:pb-0 lg:mt-8 flex-1">
+                {/* Day badge — shown inline on mobile */}
+                <div className="font-mono text-[10px] text-accent/60 uppercase tracking-widest mb-2 lg:hidden">
+                  {step.day}
+                </div>
+                <h3 className="font-display text-lg text-light uppercase mb-3 lg:h-12">
                   {step.name}
                 </h3>
-                <p className="font-mono text-xs text-light/50 mb-8 leading-relaxed max-w-[250px]">
+                <p className="font-mono text-xs text-light/50 leading-relaxed max-w-[250px]">
                   {step.desc}
                 </p>
               </div>
@@ -129,12 +136,12 @@ export function Process() {
           ))}
         </div>
 
-        {/* Timeline */}
-        <div className="mt-16 pt-8 border-t border-border flex flex-col lg:flex-row justify-between gap-4 font-mono text-sm text-light/40 uppercase tracking-widest process-step">
+        {/* Timeline row — desktop only */}
+        <div className="hidden lg:flex mt-16 pt-8 border-t border-border justify-between gap-4 font-mono text-sm text-light/40 uppercase tracking-widest process-step">
           {STEPS.map((step, i) => (
             <div key={i} className="flex items-center gap-4">
               <span className={i === STEPS.length - 1 ? 'text-accent' : ''}>{step.day}</span>
-              {i !== STEPS.length - 1 && <span className="hidden lg:inline text-border">→</span>}
+              {i !== STEPS.length - 1 && <span className="text-border">→</span>}
             </div>
           ))}
         </div>

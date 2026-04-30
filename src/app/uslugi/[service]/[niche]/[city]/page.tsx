@@ -5,6 +5,7 @@ import { SERVICES } from '@/lib/services'
 import { NICHES, CITIES } from '@/lib/niches'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
+import { WorksSlider } from '@/components/WorksSlider'
 
 interface Props {
   params: Promise<{ service: string; niche: string; city: string }>
@@ -111,7 +112,7 @@ export default async function ServiceNicheCityPage({ params }: Props) {
         <h2 className="font-display text-3xl text-light uppercase mb-8">
           Почему {niche.nameShort.toLowerCase()} в {city.name} нужен отдельный сайт
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-bg">
           {[
             'Клиенты сравнивают подрядчиков в поиске до первого звонка.',
             'Страница должна отвечать на вопросы о цене, сроках и доверии.',
@@ -132,7 +133,7 @@ export default async function ServiceNicheCityPage({ params }: Props) {
         <h2 className="font-display text-3xl text-light uppercase mb-12">
           Состав {service.name.toLowerCase()} для {niche.nameShort.toLowerCase()}
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-bg">
           {combinedFeatures.map((feature, i) => (
             <div key={feature} className="bg-bg p-8 flex items-center gap-6">
               <span className="font-mono text-xs text-accent">{String(i + 1).padStart(2, '0')}</span>
@@ -141,6 +142,9 @@ export default async function ServiceNicheCityPage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      {/* Примеры работ */}
+      <WorksSlider serviceSlug={serviceSlug} />
 
       <section className="py-24 px-6 lg:px-12 border-t border-border">
         <div className="font-mono text-xs text-accent uppercase tracking-widest mb-8">

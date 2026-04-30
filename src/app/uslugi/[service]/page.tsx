@@ -5,6 +5,7 @@ import { SERVICES } from '@/lib/services'
 import { NICHES } from '@/lib/niches'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
+import { WorksSlider } from '@/components/WorksSlider'
 
 interface Props {
   params: Promise<{ service: string }>
@@ -83,7 +84,7 @@ export default async function ServicePage({ params }: Props) {
         <h2 className="font-display text-3xl text-light uppercase mb-12">
           Состав работ
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-bg">
           {service.features.map((feature, i) => (
             <div key={i} className="bg-bg p-8 flex items-center gap-6">
               <span className="font-mono text-xs text-accent">0{i + 1}</span>
@@ -104,7 +105,7 @@ export default async function ServicePage({ params }: Props) {
         <p className="font-body text-light/40 mb-12">
           Выберите свою нишу — покажу конкретные примеры и объясню специфику.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-bg">
           {NICHES.map((niche) => (
             <Link
               key={niche.slug}
@@ -130,7 +131,7 @@ export default async function ServicePage({ params }: Props) {
         <h2 className="font-display text-3xl text-light uppercase mb-12">
           От идеи до запуска
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-border">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-bg">
           {[
             'Разбираю задачу, аудиторию и текущие точки входа клиентов.',
             'Собираю структуру страницы и SEO-логику под поисковый спрос.',
@@ -144,6 +145,9 @@ export default async function ServicePage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      {/* Примеры работ */}
+      <WorksSlider serviceSlug={serviceSlug} />
 
       {/* FAQ */}
       <section className="py-24 px-6 lg:px-12 border-t border-border">

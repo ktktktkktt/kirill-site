@@ -5,6 +5,7 @@ import { SERVICES } from '@/lib/services'
 import { NICHES, CITIES } from '@/lib/niches'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
+import { WorksSlider } from '@/components/WorksSlider'
 
 interface Props {
   params: Promise<{ service: string; niche: string }>
@@ -95,7 +96,7 @@ export default async function ServiceNichePage({ params }: Props) {
         <h2 className="font-display text-3xl text-light uppercase mb-12">
           Состав {service.name.toLowerCase()} для {niche.nameShort.toLowerCase()}
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-bg">
           {[...service.features, ...niche.features].map((feature, i) => (
             <div key={i} className="bg-bg p-8 flex items-center gap-6">
               <span className="font-mono text-xs text-accent">{String(i + 1).padStart(2, '0')}</span>
@@ -113,7 +114,7 @@ export default async function ServiceNichePage({ params }: Props) {
         <h2 className="font-display text-3xl text-light uppercase mb-12">
           Когда {niche.nameShort.toLowerCase()} нужен {service.name.toLowerCase()}
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-bg">
           {[
             'Если заявки приходят случайно и нет стабильного потока из поиска.',
             'Если клиентам нужно показать опыт, цены, процесс и гарантии до звонка.',
@@ -126,6 +127,9 @@ export default async function ServiceNichePage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      {/* Примеры работ */}
+      <WorksSlider serviceSlug={serviceSlug} />
 
       {/* Хлебные крошки / навигация вверх */}
       <section className="py-12 px-6 lg:px-12 border-t border-border">
