@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 
-// TODO: замени на свои реальные скриншоты проектов
+// Скриншоты портфолио проектов
 const WORK_IMAGES = [
   {
     src: 'https://images.unsplash.com/photo-1622212993957-6d4631a0ba8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
