@@ -39,7 +39,7 @@ export function Niches() {
   const gridRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    let ctx: import('gsap').Context | null = null
+    let ctx: any = null
 
     const initGsap = async () => {
       const { default: gsap } = await import('gsap')
