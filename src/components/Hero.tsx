@@ -28,7 +28,7 @@ export function Hero() {
   const title2Ref = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    let ctx: import('gsap').Context | null = null
+    let ctx: any = null
 
     const runAnimation = async () => {
       const { default: gsap } = await import('gsap')
