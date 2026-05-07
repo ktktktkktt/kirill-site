@@ -12,16 +12,10 @@ jobs:
 
       - name: Set up SSH
         run: |
-          set -x
           mkdir -p ~/.ssh
-          echo "DEPLOY_KEY length: ${#DEPLOY_KEY}"
-          echo "$DEPLOY_KEY" | base64 -d > ~/.ssh/deploy_key || { echo "ERROR: base64 decode failed"; exit 1; }
+          echo "${{ secrets.DEPLOY_KEY }}" | base64 -d > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          echo "Key file size: $(wc -c < ~/.ssh/deploy_key)"
-          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts || { echo "ERROR: ssh-keyscan failed for $DEPLOY_HOST"; exit 1; }
-        env:
-          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          echo "StrictHostKeyChecking no" >> ~/.ssh/config
 
       - name: Deploy to server
         run: |
