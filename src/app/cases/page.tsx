@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
 import { CASES } from '@/lib/cases'
+import { CaseImageScroll } from '@/components/CaseImageScroll'
 
 export const metadata: Metadata = {
   title: 'Кейсы разработки сайтов — Кирилл Ткаченко',
@@ -38,14 +38,7 @@ export default function CasesPage() {
         <div className="grid grid-cols-1 gap-12">
           {CASES.map((item) => (
             <article key={item.slug} className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-bg">
-              <div className="relative min-h-[360px] bg-card">
-                <Image
-                  src={item.image}
-                  alt={item.name}
-                  fill
-                  className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                />
-              </div>
+              <CaseImageScroll src={item.image} alt={item.name} className="min-h-[360px]" />
               <div className="bg-bg p-8 lg:p-12">
                 <div className="font-mono text-xs text-accent uppercase tracking-widest mb-6">
                   {item.niche} · {item.service} · {item.year}

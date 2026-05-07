@@ -5,6 +5,7 @@ import { NICHES, CITIES } from '@/lib/niches'
 import { SERVICES } from '@/lib/services'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
+import { NicheCases } from '@/components/NicheCases'
 
 interface Props {
   params: Promise<{ niche: string; city: string }>
@@ -134,6 +135,8 @@ export default async function NicheCityPage({ params }: Props) {
           отзывами и поисковыми системами.
         </p>
       </section>
+
+      <NicheCases nicheSlug={nicheSlug} nicheName={niche.name} />
 
       {/* Хлебные крошки */}
       <section className="py-12 px-6 lg:px-12 border-t border-border">

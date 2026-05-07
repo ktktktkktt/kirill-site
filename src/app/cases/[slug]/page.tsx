@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { CASES } from '@/lib/cases'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
+import { CaseImageScroll } from '@/components/CaseImageScroll'
 import { ArrowUpRight, ArrowLeft } from 'lucide-react'
 
 interface Props {
@@ -52,7 +53,7 @@ export default async function CaseSlugPage({ params }: Props) {
           alt={item.name}
           fill
           priority
-          className="object-cover grayscale contrast-125"
+          className="object-cover object-top grayscale contrast-125"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg" />
       </div>
@@ -114,6 +115,21 @@ export default async function CaseSlugPage({ params }: Props) {
         </div>
       </section>
 
+      {/* Full-size preview */}
+      <section className="px-6 lg:px-12 py-16 border-b border-border">
+        <div className="font-mono text-xs text-accent uppercase tracking-widest mb-8">
+          [ Полный экран ]
+        </div>
+        <div className="max-w-3xl">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={item.image}
+            alt={item.name}
+            className="w-full h-auto block"
+          />
+        </div>
+      </section>
+
       {/* Related cases */}
       {related.length > 0 && (
         <section className="px-6 lg:px-12 py-24 border-b border-border">
@@ -130,14 +146,7 @@ export default async function CaseSlugPage({ params }: Props) {
                 href={`/cases/${c.slug}`}
                 className="group bg-bg hover:bg-surface transition-colors duration-300 block"
               >
-                <div className="relative w-full aspect-[16/9] overflow-hidden bg-card">
-                  <Image
-                    src={c.image}
-                    alt={c.name}
-                    fill
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                  />
-                </div>
+                <CaseImageScroll src={c.image} alt={c.name} className="aspect-[16/9]" />
                 <div className="p-6">
                   <div className="font-mono text-[10px] text-accent uppercase tracking-widest mb-3">
                     {c.niche} · {c.year}
