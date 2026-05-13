@@ -4,6 +4,8 @@ import './globals.css'
 import { Preloader } from '@/components/Preloader'
 import { JsonLd } from '@/components/JsonLd'
 import { YandexMetrika } from '@/components/YandexMetrika'
+import { ContactModal } from '@/components/ContactModal'
+import { StickyMobileCTA } from '@/components/StickyMobileCTA'
 import {
   SITE_URL,
   SITE_NAME,
@@ -128,6 +130,8 @@ export default function RootLayout({
       <body>
         <Preloader />
         {children}
+        <StickyMobileCTA />
+        <ContactModal />
         <YandexMetrika />
       </body>
     </html>

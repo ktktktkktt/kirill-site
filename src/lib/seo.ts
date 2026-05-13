@@ -8,6 +8,7 @@ export const SITE_AUTHOR = 'Кирилл Ткаченко'
 export const SITE_PHONE = '+7 986 001 06 65'
 export const SITE_PHONE_TEL = '+79860010665'
 export const SITE_TELEGRAM = 'https://t.me/design_kto'
+export const SITE_WHATSAPP = 'https://wa.me/79860010665'
 export const SITE_LOCALE = 'ru_RU'
 export const SITE_COUNTRY = 'RU'
 export const SITE_DEFAULT_OG = '/og.jpg' // 1200x630, положить в /public

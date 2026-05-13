@@ -1,15 +1,16 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { ArrowRight } from 'lucide-react'
+import { Send, MessageCircle, Phone } from 'lucide-react'
+import { LeadForm } from './LeadForm'
+
+const YEAR = new Date().getFullYear()
 
 export function FooterCTA() {
   const containerRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
-    // interval объявляем во внешнем scope useEffect, чтобы и вложенный
-    // gsap.context, и cleanup-функция могли к нему обратиться.
     let interval: ReturnType<typeof setInterval> | null = null
     let revert: (() => void) | null = null
     let cancelled = false
@@ -19,7 +20,6 @@ export function FooterCTA() {
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
       gsap.registerPlugin(ScrollTrigger)
 
-      // Если компонент уже размонтировался, пока шёл async-импорт — выходим
       if (cancelled) return
 
       const ctx = gsap.context(() => {
@@ -71,41 +71,62 @@ export function FooterCTA() {
     <section
       id="contact"
       ref={containerRef}
-      className="pt-48 pb-20 px-6 lg:px-12 bg-bg flex flex-col items-center justify-center text-center border-t border-border"
+      className="pt-32 lg:pt-48 pb-24 px-6 lg:px-12 bg-bg flex flex-col items-center justify-center text-center border-t border-border"
     >
       <h2
         ref={titleRef}
         data-text="ОБСУДИМ ПРОЕКТ"
-        className="font-display text-[8vw] lg:text-[10vw] leading-none text-light uppercase mb-16 tracking-tight"
+        className="font-display text-[12vw] lg:text-[9vw] xl:text-[8vw] leading-none text-light uppercase mb-10 tracking-tight"
       >
         ОБСУДИМ ПРОЕКТ
       </h2>
 
-      <p className="font-mono text-sm text-light/40 max-w-md mb-12 leading-relaxed">
-        Напишите мне — отвечу в течение часа, скажу точную цену и срок для вашей задачи.
+      <p className="font-mono text-sm text-light/40 max-w-md mb-10 leading-relaxed">
+        Заполни форму или напиши в мессенджер — отвечу в течение часа,
+        скажу точную цену и срок для твоей задачи.
       </p>
 
-      <div className="flex flex-col sm:flex-row gap-4 items-center">
+      {/* Форма */}
+      <div className="w-full max-w-md text-left border border-border bg-surface/40 p-6 lg:p-8 mb-12">
+        <LeadForm source="footer" />
+      </div>
+
+      <div className="font-mono text-[10px] text-light/30 uppercase tracking-widest mb-6">
+        — или мессенджером —
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-3 items-stretch w-full max-w-md">
         <a
           href="https://t.me/design_kto"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-accent text-bg font-mono font-bold uppercase tracking-wider py-6 px-12 text-sm lg:text-base flex items-center justify-center gap-4 hover:bg-light transition-colors duration-300"
+          className="flex-1 bg-accent text-bg font-mono text-xs lg:text-sm uppercase tracking-widest py-4 px-5 flex items-center justify-center gap-2 hover:bg-light transition-colors duration-300"
         >
-          Написать в Telegram <ArrowRight size={20} />
+          <Send size={14} />
+          Telegram
+        </a>
+        <a
+          href="https://wa.me/79860010665"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 border border-border text-light font-mono text-xs lg:text-sm uppercase tracking-widest py-4 px-5 flex items-center justify-center gap-2 hover:border-accent hover:text-accent transition-colors duration-300"
+        >
+          <MessageCircle size={14} />
+          WhatsApp
         </a>
         <a
           href="tel:+79860010665"
-          className="border border-border text-light font-mono uppercase tracking-wider py-6 px-12 text-sm flex items-center justify-center gap-4 hover:border-accent hover:text-accent transition-colors duration-300"
+          className="flex-1 border border-border text-light font-mono text-xs lg:text-sm uppercase tracking-widest py-4 px-5 flex items-center justify-center gap-2 hover:border-accent hover:text-accent transition-colors duration-300"
         >
-          +7 986 001 06 65 →
+          <Phone size={14} />
+          Позвонить
         </a>
       </div>
 
       <div className="mt-24 font-mono text-xs text-light/30 flex flex-col lg:flex-row gap-6 items-center uppercase">
-        <span>© 2025 Кирилл Ткаченко</span>
+        <span>© {YEAR} Кирилл Ткаченко</span>
         <span className="hidden lg:inline">·</span>
-        <span>Россия</span>
+        <span>Россия · Самозанятый</span>
         <span className="hidden lg:inline">·</span>
         <span>+7 986 001 06 65</span>
       </div>

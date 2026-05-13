@@ -9,6 +9,7 @@ import { Cases } from '@/components/Cases'
 import { Testimonials } from '@/components/Testimonials'
 import { AITemplates } from '@/components/AITemplates'
 import { Process } from '@/components/Process'
+import { Guarantees } from '@/components/Guarantees'
 import { AboutMe } from '@/components/AboutMe'
 import { HomeFAQ } from '@/components/HomeFAQ'
 import { FooterCTA } from '@/components/FooterCTA'
@@ -68,6 +69,7 @@ export default function HomePage() {
       <Testimonials />
       <AITemplates />
       <Process />
+      <Guarantees />
       <AboutMe />
       <HomeFAQ />
       <FooterCTA />
