@@ -2,9 +2,11 @@ import type { Metadata } from 'next'
 import { Nav } from '@/components/Nav'
 import { Hero } from '@/components/Hero'
 import { Marquee } from '@/components/Marquee'
+import { Clients } from '@/components/Clients'
 import { Services } from '@/components/Services'
 import { Niches } from '@/components/Niches'
 import { Cases } from '@/components/Cases'
+import { Testimonials } from '@/components/Testimonials'
 import { AITemplates } from '@/components/AITemplates'
 import { Process } from '@/components/Process'
 import { AboutMe } from '@/components/AboutMe'
@@ -59,9 +61,11 @@ export default function HomePage() {
       <Nav />
       <Hero />
       <Marquee />
+      <Clients />
       <Services />
       <Niches />
       <Cases />
+      <Testimonials />
       <AITemplates />
       <Process />
       <AboutMe />

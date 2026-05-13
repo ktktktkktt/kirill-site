@@ -1,26 +1,45 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 import Image from 'next/image'
 
-// Скриншоты портфолио проектов
+// Реальные скриншоты портфолио — лежат в /public/cases
 const WORK_IMAGES = [
   {
-    src: 'https://images.unsplash.com/photo-1622212993957-6d4631a0ba8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-    label: '01 — Лендинг',
+    src: '/cases/domus.png',
+    label: '01 — Domus',
+    alt: 'Сайт строительной компании Domus',
   },
   {
-    src: 'https://images.unsplash.com/photo-1634084462412-b54873c0a56d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-    label: '02 — Корп. сайт',
+    src: '/cases/nordwood.png',
+    label: '02 — Nordwood',
+    alt: 'Сайт по строительству деревянных домов Nordwood',
   },
   {
-    src: 'https://images.unsplash.com/photo-1720962158937-7ea890052166?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-    label: '03 — Дашборд',
+    src: '/cases/kirpichnye-doma.png',
+    label: '03 — Кирпичные дома',
+    alt: 'Сайт компании Кирпичные дома',
   },
 ]
 
+const BULLETS = [
+  'Цена от 30 000 ₽, фикс в договоре до старта',
+  'SEO с первого дня — заявки из поиска без бюджета на рекламу',
+  'Работаю напрямую: без менеджеров и сломанного телефона',
+]
+
 type WinWithFlag = typeof window & { __preloaderDone?: boolean }
+
+// Дата открытости к проектам — пересчитывается на каждом ребилде.
+// suppressHydrationWarning ниже снимает варнинг, если клиент в другом месяце.
+function getAvailabilityLabel() {
+  const label = new Date().toLocaleString('ru-RU', {
+    month: 'long',
+    year: 'numeric',
+  })
+  return label.charAt(0).toUpperCase() + label.slice(1)
+}
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -38,7 +57,7 @@ export function Hero() {
         element.innerHTML = ''
         text.split('').forEach((char) => {
           const span = document.createElement('span')
-          span.innerText = char === ' ' ? ' ' : char
+          span.innerText = char === ' ' ? ' ' : char
           span.style.display = 'inline-block'
           span.style.transform = 'translateY(100%)'
           span.style.opacity = '0'
@@ -51,7 +70,6 @@ export function Hero() {
         if (title1Ref.current && title2Ref.current) {
           const chars1 = splitText(title1Ref.current)
           const chars2 = splitText(title2Ref.current)
-          // splitText puts chars inside — parent wrapper must be visible
           gsap.set([title1Ref.current, title2Ref.current], { opacity: 1 })
 
           const tl = gsap.timeline()
@@ -75,7 +93,7 @@ export function Hero() {
             stagger: 0.15,
             ease: 'power3.out',
             delay: 0.4,
-          }
+          },
         )
 
         gsap.fromTo(
@@ -88,13 +106,12 @@ export function Hero() {
             stagger: 0.1,
             ease: 'power2.out',
             delay: 0.9,
-          }
+          },
         )
       }, containerRef)
     }
 
     if ((window as WinWithFlag).__preloaderDone) {
-      // Preloader already finished (e.g. client-side navigation back to homepage)
       runAnimation()
     } else {
       const onDone = () => {
@@ -108,7 +125,9 @@ export function Hero() {
       }
     }
 
-    return () => { ctx?.revert() }
+    return () => {
+      ctx?.revert()
+    }
   }, [])
 
   return (
@@ -118,49 +137,93 @@ export function Hero() {
     >
       {/* ── LEFT: Text ── */}
       <div className="w-full lg:w-[55%] flex flex-col justify-center z-10 pb-16 lg:pb-0 pr-0 lg:pr-16">
-        <div className="mb-6 font-mono text-xs tracking-widest text-light/40 uppercase hero-ui" style={{ opacity: 0 }}>
-          [ Веб-разработка · ИИ · 2025 ]
+        <div
+          className="mb-6 font-mono text-xs tracking-widest text-light/40 uppercase hero-ui"
+          style={{ opacity: 0 }}
+        >
+          [ Веб-разработка · SEO · ИИ · 2026 ]
         </div>
 
         <h1
-          className="font-display font-black text-5xl md:text-6xl lg:text-[5.5vw] leading-[0.88] text-light uppercase mb-10 flex flex-col"
+          className="font-display font-black text-5xl md:text-6xl lg:text-[5.2vw] leading-[0.9] text-light uppercase mb-8 flex flex-col"
           style={{ clipPath: 'polygon(0 0, 100% 0, 100% 110%, 0 110%)' }}
         >
-          <span ref={title1Ref} className="block overflow-hidden" style={{ opacity: 0 }}>
-            САЙТ /
+          <span
+            ref={title1Ref}
+            className="block overflow-hidden"
+            style={{ opacity: 0 }}
+          >
+            РАЗРАБОТКА
           </span>
-          <span ref={title2Ref} className="block overflow-hidden" style={{ opacity: 0 }}>
-            ЗА 7 ДНЕЙ
+          <span
+            ref={title2Ref}
+            className="block overflow-hidden"
+            style={{ opacity: 0 }}
+          >
+            САЙТОВ ЗА 7 ДНЕЙ
           </span>
         </h1>
 
-        <p className="font-body text-sm text-light/50 max-w-sm mb-10 hero-ui leading-relaxed" style={{ opacity: 0 }}>
-          Разрабатываю продающие сайты для малого бизнеса — быстро,
-          с упором на маркетинг, без компромиссов по дизайну.
+        <p
+          className="font-body text-base lg:text-lg text-light/70 max-w-lg mb-8 hero-ui leading-relaxed"
+          style={{ opacity: 0 }}
+        >
+          Лендинги, корпоративные сайты и интернет-магазины под ключ.
+          Продающая структура, SEO с первого дня, фикс цены в договоре.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-6 items-start hero-ui" style={{ opacity: 0 }}>
+        {/* Bullets — выгоды */}
+        <ul
+          className="flex flex-col gap-3 mb-10 hero-ui max-w-lg"
+          style={{ opacity: 0 }}
+        >
+          {BULLETS.map((b) => (
+            <li
+              key={b}
+              className="flex items-start gap-3 font-body text-sm text-light/60"
+            >
+              <Check
+                size={16}
+                className="text-accent mt-0.5 flex-shrink-0"
+                strokeWidth={2.5}
+              />
+              <span>{b}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div
+          className="flex flex-col sm:flex-row gap-6 items-start hero-ui"
+          style={{ opacity: 0 }}
+        >
           <a
             href="#contact"
             className="bg-accent text-bg font-mono text-xs uppercase tracking-widest py-4 px-8 flex items-center gap-3 hover:bg-light transition-colors duration-300"
           >
-            Начать проект <ArrowRight size={16} />
+            Получить смету за 15 минут <ArrowRight size={16} />
           </a>
           <div className="flex flex-col justify-center">
             <span className="font-mono text-[10px] text-light/40 uppercase tracking-wider mb-1">
-              Открыт для новых проектов
+              Открыт для проектов
             </span>
-            {/* TODO: поменяй на актуальный месяц */}
-            <span className="font-mono text-sm text-light">Май 2025</span>
+            <span
+              className="font-mono text-sm text-light"
+              suppressHydrationWarning
+            >
+              {getAvailabilityLabel()}
+            </span>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="flex gap-10 mt-14 hero-ui border-t border-card pt-8" style={{ opacity: 0 }}>
+        <div
+          className="flex gap-10 mt-14 hero-ui border-t border-card pt-8"
+          style={{ opacity: 0 }}
+        >
           {[
-            { num: '50+', label: 'Проектов' },
+            { num: '80+', label: 'Проектов' },
             { num: '5+', label: 'Лет опыта' },
-            { num: '10', label: 'Ниш' },
+            { num: '12', label: 'Ниш' },
           ].map((s) => (
             <div key={s.label} className="flex flex-col gap-1">
               <span className="font-display text-2xl text-accent">{s.num}</span>
@@ -181,9 +244,11 @@ export function Hero() {
         >
           <Image
             src={WORK_IMAGES[0].src}
-            alt={WORK_IMAGES[0].label}
+            alt={WORK_IMAGES[0].alt}
             fill
-            className="object-cover grayscale contrast-[1.1] hover:grayscale-0 transition-all duration-700"
+            priority
+            sizes="(max-width: 1024px) 100vw, 45vw"
+            className="object-cover object-top grayscale contrast-[1.1] hover:grayscale-0 transition-all duration-700"
           />
           <div className="absolute top-4 left-4 font-mono text-[10px] text-accent uppercase tracking-widest bg-black/60 px-2 py-1">
             [ {WORK_IMAGES[0].label} ]
@@ -193,12 +258,17 @@ export function Hero() {
         {/* Bottom row */}
         <div className="flex gap-3" style={{ height: '48%', minHeight: '180px' }}>
           {[WORK_IMAGES[1], WORK_IMAGES[2]].map((img, i) => (
-            <div key={i} className="hero-work-img relative flex-1 overflow-hidden bg-card" style={{ opacity: 0 }}>
+            <div
+              key={i}
+              className="hero-work-img relative flex-1 overflow-hidden bg-card"
+              style={{ opacity: 0 }}
+            >
               <Image
                 src={img.src}
-                alt={img.label}
+                alt={img.alt}
                 fill
-                className="object-cover grayscale contrast-[1.1] hover:grayscale-0 transition-all duration-700"
+                sizes="(max-width: 1024px) 50vw, 22vw"
+                className="object-cover object-top grayscale contrast-[1.1] hover:grayscale-0 transition-all duration-700"
               />
               <div className="absolute top-3 left-3 font-mono text-[10px] text-accent uppercase tracking-widest bg-black/60 px-2 py-1">
                 [ {img.label} ]
@@ -208,18 +278,23 @@ export function Hero() {
         </div>
 
         {/* Stack badge */}
-        <div className="hero-ui border border-card bg-surface px-5 py-4 flex items-center justify-between" style={{ opacity: 0 }}>
+        <div
+          className="hero-ui border border-card bg-surface px-5 py-4 flex items-center justify-between"
+          style={{ opacity: 0 }}
+        >
           <div>
             <div className="font-mono text-[9px] text-accent uppercase tracking-widest mb-1">
               Stack
             </div>
             <div className="font-mono text-xs text-light/60">
-              React · Tailwind · GSAP · Next.js
+              Next.js · React · Tailwind · GSAP · SEO
             </div>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-[10px] text-light/40 uppercase">Online</span>
+            <span className="font-mono text-[10px] text-light/40 uppercase">
+              Online
+            </span>
           </div>
         </div>
       </div>

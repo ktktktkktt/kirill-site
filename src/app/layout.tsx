@@ -3,6 +3,7 @@ import { Inter, Space_Mono, Unbounded } from 'next/font/google'
 import './globals.css'
 import { Preloader } from '@/components/Preloader'
 import { JsonLd } from '@/components/JsonLd'
+import { YandexMetrika } from '@/components/YandexMetrika'
 import {
   SITE_URL,
   SITE_NAME,
@@ -127,6 +128,7 @@ export default function RootLayout({
       <body>
         <Preloader />
         {children}
+        <YandexMetrika />
       </body>
     </html>
   )

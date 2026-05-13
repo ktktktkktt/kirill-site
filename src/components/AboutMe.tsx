@@ -104,9 +104,10 @@ export function AboutMe() {
         <div className="flex flex-col gap-8">
           <div className="relative w-full aspect-[4/3] bg-card overflow-hidden">
             <Image
-              src="https://images.unsplash.com/photo-1537511446984-935f663eb1f4?auto=format&fit=crop&q=80&w=1200"
-              alt="Кирилл Ткаченко — разработчик сайтов"
+              src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=1200"
+              alt="Рабочее место разработчика сайтов"
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover grayscale"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-bg/40 to-transparent" />
