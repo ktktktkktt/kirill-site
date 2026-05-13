@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { Send, MessageCircle, Phone, ArrowUpRight } from 'lucide-react'
+import { Send, Phone, ArrowUpRight } from 'lucide-react'
 import { LeadForm } from './LeadForm'
 
 const YEAR = new Date().getFullYear()
@@ -20,15 +20,9 @@ const MESSENGERS = [
     primary: true,
   },
   {
-    href: 'https://wa.me/79860010665',
-    icon: MessageCircle,
-    label: 'WhatsApp',
-    primary: false,
-  },
-  {
     href: 'tel:+79860010665',
     icon: Phone,
-    label: '+7 986 001 06 65',
+    label: '+7 986 001 06 65',
     primary: false,
   },
 ]
@@ -278,7 +272,7 @@ export function FooterCTA() {
           </div>
 
           {/* Messenger buttons */}
-          <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             {MESSENGERS.map((m, i) => {
               const Icon = m.icon
               return (
@@ -288,18 +282,18 @@ export function FooterCTA() {
                   target={m.href.startsWith('http') ? '_blank' : undefined}
                   rel={m.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   ref={(el) => { msgRefs.current[i] = el }}
-                  className={`group flex-1 flex items-center justify-center gap-2.5 py-4 px-5 font-mono text-xs uppercase tracking-widest transition-colors duration-300 ${
+                  className={`group flex-1 flex items-center justify-center gap-2 py-4 px-4 font-mono text-[11px] uppercase tracking-wider whitespace-nowrap transition-colors duration-300 ${
                     m.primary
                       ? 'bg-accent text-bg hover:bg-light'
                       : 'border border-border text-light hover:border-accent hover:text-accent'
                   }`}
                 >
-                  <Icon size={13} />
+                  <Icon size={13} className="flex-shrink-0" />
                   {m.label}
                   {m.primary && (
                     <ArrowUpRight
                       size={13}
-                      className="opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
+                      className="flex-shrink-0 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
                     />
                   )}
                 </a>

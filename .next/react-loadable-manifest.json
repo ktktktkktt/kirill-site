@@ -9,7 +9,7 @@
   "components/AITemplates.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   },
   "components/AboutMe.tsx -> gsap": {
@@ -22,7 +22,7 @@
   "components/AboutMe.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   },
   "components/CaseImageScroll.tsx -> gsap": {
@@ -42,7 +42,7 @@
   "components/Cases.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   },
   "components/Clients.tsx -> gsap": {
@@ -55,7 +55,7 @@
   "components/Clients.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   },
   "components/FooterCTA.tsx -> gsap": {
@@ -68,7 +68,7 @@
   "components/FooterCTA.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   },
   "components/Guarantees.tsx -> gsap": {
@@ -81,7 +81,7 @@
   "components/Guarantees.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   },
   "components/Hero.tsx -> gsap": {
@@ -101,7 +101,7 @@
   "components/HomeFAQ.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   },
   "components/Marquee.tsx -> gsap": {
@@ -121,7 +121,7 @@
   "components/NicheCases.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   },
   "components/Niches.tsx -> gsap": {
@@ -134,7 +134,7 @@
   "components/Niches.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   },
   "components/Preloader.tsx -> gsap": {
@@ -154,7 +154,7 @@
   "components/Process.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   },
   "components/Services.tsx -> gsap": {
@@ -167,7 +167,7 @@
   "components/Services.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   },
   "components/Testimonials.tsx -> gsap": {
@@ -180,7 +180,7 @@
   "components/Testimonials.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   },
   "components/WorksSlider.tsx -> gsap": {
@@ -193,7 +193,7 @@
   "components/WorksSlider.tsx -> gsap/ScrollTrigger": {
     "id": 5415,
     "files": [
-      "static/chunks/415.d8c9708448dadab7.js"
+      "static/chunks/796.6e8031a8ff400c2e.js"
     ]
   }
 }
