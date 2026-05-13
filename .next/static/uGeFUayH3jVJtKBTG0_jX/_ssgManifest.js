@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fcases\u002F[slug]","\u002Fdlya\u002F[niche]","\u002Fdlya\u002F[niche]\u002F[city]","\u002Fuslugi\u002F[service]","\u002Fuslugi\u002F[service]\u002F[niche]","\u002Fuslugi\u002F[service]\u002F[niche]\u002F[city]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
