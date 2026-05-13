@@ -87,7 +87,7 @@ export function FooterCTA() {
 
       <div className="flex flex-col sm:flex-row gap-4 items-center">
         <a
-          href="https://t.me/YOUR_TELEGRAM"
+          href="https://t.me/design_kto"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-accent text-bg font-mono font-bold uppercase tracking-wider py-6 px-12 text-sm lg:text-base flex items-center justify-center gap-4 hover:bg-light transition-colors duration-300"
@@ -95,22 +95,19 @@ export function FooterCTA() {
           Написать в Telegram <ArrowRight size={20} />
         </a>
         <a
-          href="https://wa.me/YOUR_PHONE"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="tel:+79860010665"
           className="border border-border text-light font-mono uppercase tracking-wider py-6 px-12 text-sm flex items-center justify-center gap-4 hover:border-accent hover:text-accent transition-colors duration-300"
         >
-          WhatsApp →
+          +7 986 001 06 65 →
         </a>
       </div>
 
       <div className="mt-24 font-mono text-xs text-light/30 flex flex-col lg:flex-row gap-6 items-center uppercase">
-        {/* TODO: замени на свои данные */}
         <span>© 2025 Кирилл Ткаченко</span>
         <span className="hidden lg:inline">·</span>
         <span>Россия</span>
         <span className="hidden lg:inline">·</span>
-        <span>hello@example.com</span>
+        <span>+7 986 001 06 65</span>
       </div>
     </section>
   )
