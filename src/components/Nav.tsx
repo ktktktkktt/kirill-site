@@ -109,6 +109,12 @@ export function Nav() {
             Кейсы
           </Link>
           <Link
+            href="/blog"
+            className="font-mono text-xs uppercase tracking-widest text-muted hover:text-light transition-colors duration-200"
+          >
+            Блог
+          </Link>
+          <Link
             href="/about"
             className="font-mono text-xs uppercase tracking-widest text-muted hover:text-light transition-colors duration-200"
           >
@@ -207,6 +213,14 @@ export function Nav() {
               className="flex items-center justify-between py-5 border-b border-border/50"
             >
               <span className="font-display text-2xl text-light uppercase">Кейсы</span>
+              <span className="font-mono text-accent">→</span>
+            </Link>
+            <Link
+              href="/blog"
+              onClick={closeMobileMenu}
+              className="flex items-center justify-between py-5 border-b border-border/50"
+            >
+              <span className="font-display text-2xl text-light uppercase">Блог</span>
               <span className="font-mono text-accent">→</span>
             </Link>
             <Link

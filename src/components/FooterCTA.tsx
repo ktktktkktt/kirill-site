@@ -133,6 +133,10 @@ export function FooterCTA() {
         <a href="/privacy" className="hover:text-accent transition-colors">
           Политика конфиденциальности
         </a>
+        <span className="hidden lg:inline">·</span>
+        <a href="/blog" className="hover:text-accent transition-colors">
+          Блог
+        </a>
       </div>
     </section>
   )

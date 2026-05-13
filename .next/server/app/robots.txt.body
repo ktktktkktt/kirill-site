@@ -1,7 +1,0 @@
-User-Agent: *
-Allow: /
-Disallow: /api/
-Disallow: /_next/
-
-Host: https://xn----8sblmeib4a2b.xn--p1ai
-Sitemap: https://xn----8sblmeib4a2b.xn--p1ai/sitemap.xml

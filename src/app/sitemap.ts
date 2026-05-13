@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next'
 import { NICHES, CITIES } from '@/lib/niches'
 import { SERVICES } from '@/lib/services'
 import { CASES } from '@/lib/cases'
+import { ARTICLES } from '@/lib/articles'
 import { SITE_URL } from '@/lib/seo'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -58,6 +59,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
+  const blogPages = ARTICLES.map((a) => ({
+    url: `${baseUrl}/blog/${a.slug}`,
+    lastModified: new Date(a.updatedAt || a.publishedAt),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
   return [
     {
       url: baseUrl,
@@ -77,6 +85,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    ...blogPages,
     ...servicePages,
     ...serviceNichePages,
     ...serviceNicheCityPages,
