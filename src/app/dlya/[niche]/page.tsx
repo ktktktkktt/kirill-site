@@ -6,6 +6,8 @@ import { SERVICES } from '@/lib/services'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
 import { NicheCases } from '@/components/NicheCases'
+import { JsonLd } from '@/components/JsonLd'
+import { getBreadcrumbJsonLd, getServiceJsonLd } from '@/lib/seo'
 
 interface Props {
   params: Promise<{ niche: string }>
@@ -29,6 +31,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `сайт ${niche.nameShort.toLowerCase()} под ключ`,
       `создать сайт для ${niche.nameShort.toLowerCase()}`,
     ],
+    alternates: {
+      canonical: `/dlya/${nicheSlug}`,
+    },
+    openGraph: {
+      title: `Сайт для ${niche.name} под ключ за 7 дней`,
+      description: niche.pain,
+      type: 'website',
+      locale: 'ru_RU',
+      url: `/dlya/${nicheSlug}`,
+    },
   }
 }
 
@@ -39,6 +51,20 @@ export default async function NichePage({ params }: Props) {
 
   return (
     <main className="bg-bg text-light min-h-screen">
+      <JsonLd
+        data={getServiceJsonLd({
+          name: `Разработка сайта для ${niche.name}`,
+          description: niche.pain,
+          url: `/dlya/${nicheSlug}`,
+          serviceType: 'Разработка сайта',
+        })}
+      />
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: 'Главная', url: '/' },
+          { name: niche.nameShort, url: `/dlya/${nicheSlug}` },
+        ])}
+      />
       <Nav />
 
       {/* Hero */}

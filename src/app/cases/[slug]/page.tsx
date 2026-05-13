@@ -7,6 +7,8 @@ import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
 import { CaseImageScroll } from '@/components/CaseImageScroll'
 import { ArrowUpRight, ArrowLeft } from 'lucide-react'
+import { JsonLd } from '@/components/JsonLd'
+import { getBreadcrumbJsonLd, getArticleJsonLd } from '@/lib/seo'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -24,11 +26,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${item.name} — Кейс · Кирилл Ткаченко`,
     description: `${item.service} для ${item.niche.toLowerCase()}. Задача: ${item.task} Результат: ${item.result}`,
+    alternates: {
+      canonical: `/cases/${slug}`,
+    },
     openGraph: {
       title: item.name,
       images: [{ url: item.image }],
       locale: 'ru_RU',
       type: 'article',
+      url: `/cases/${slug}`,
     },
   }
 }
@@ -44,6 +50,21 @@ export default async function CaseSlugPage({ params }: Props) {
 
   return (
     <main className="bg-bg text-light min-h-screen">
+      <JsonLd
+        data={getArticleJsonLd({
+          headline: item.name,
+          description: `${item.service} для ${item.niche.toLowerCase()}. ${item.task}`,
+          url: `/cases/${slug}`,
+          image: item.image,
+        })}
+      />
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: 'Главная', url: '/' },
+          { name: 'Кейсы', url: '/cases' },
+          { name: item.name, url: `/cases/${slug}` },
+        ])}
+      />
       <Nav />
 
       {/* Hero image */}

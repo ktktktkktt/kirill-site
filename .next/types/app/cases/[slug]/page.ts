@@ -1,4 +1,4 @@
-// File: /Users/kirilltkacenko/SEO-Site-2/kirill-site-main/src/app/cases/[slug]/page.tsx
+// File: /Users/kirilltkacenko/Documents/Работа/SEO-Site-2/kirill-site-main/src/app/cases/[slug]/page.tsx
 import * as entry from '../../../../../src/app/cases/[slug]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

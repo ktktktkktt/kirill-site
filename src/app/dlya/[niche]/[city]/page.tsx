@@ -6,6 +6,8 @@ import { SERVICES } from '@/lib/services'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
 import { NicheCases } from '@/components/NicheCases'
+import { JsonLd } from '@/components/JsonLd'
+import { getBreadcrumbJsonLd, getServiceJsonLd } from '@/lib/seo'
 
 interface Props {
   params: Promise<{ niche: string; city: string }>
@@ -37,10 +39,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `сайт ${niche.nameShort.toLowerCase()} ${city.nameRod} под ключ`,
       `создать сайт ${niche.nameShort.toLowerCase()} ${city.nameRod}`,
     ],
+    alternates: {
+      canonical: `/dlya/${nicheSlug}/${citySlug}`,
+    },
     openGraph: {
       title,
       locale: 'ru_RU',
       type: 'website',
+      url: `/dlya/${nicheSlug}/${citySlug}`,
     },
   }
 }
@@ -51,8 +57,26 @@ export default async function NicheCityPage({ params }: Props) {
   const city = CITIES.find((c) => c.slug === citySlug)
   if (!niche || !city) notFound()
 
+  const url = `/dlya/${nicheSlug}/${citySlug}`
+
   return (
     <main className="bg-bg text-light min-h-screen">
+      <JsonLd
+        data={getServiceJsonLd({
+          name: `Сайт для ${niche.name} в ${city.name}`,
+          description: niche.pain,
+          url,
+          serviceType: 'Разработка сайта',
+          areaServed: city.name,
+        })}
+      />
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: 'Главная', url: '/' },
+          { name: niche.nameShort, url: `/dlya/${nicheSlug}` },
+          { name: city.name, url },
+        ])}
+      />
       <Nav />
 
       <section className="pt-40 pb-24 px-6 lg:px-12">

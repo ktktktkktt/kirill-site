@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
+import { JsonLd } from '@/components/JsonLd'
+import { getBreadcrumbJsonLd, getPersonJsonLd } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Обо мне — Кирилл Ткаченко, разработка сайтов под ключ',
@@ -14,6 +16,13 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main className="bg-bg text-light min-h-screen">
+      <JsonLd data={getPersonJsonLd()} />
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: 'Главная', url: '/' },
+          { name: 'Обо мне', url: '/about' },
+        ])}
+      />
       <Nav />
 
       <section className="pt-40 pb-24 px-6 lg:px-12">

@@ -1,74 +1,79 @@
 import { MetadataRoute } from 'next'
 import { NICHES, CITIES } from '@/lib/niches'
 import { SERVICES } from '@/lib/services'
+import { CASES } from '@/lib/cases'
+import { SITE_URL } from '@/lib/seo'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://YOUR-DOMAIN.ru' // TODO: замени на свой домен
+  const baseUrl = SITE_URL
+  const now = new Date()
 
-  // /uslugi/[service]
   const servicePages = SERVICES.map((service) => ({
     url: `${baseUrl}/uslugi/${service.slug}`,
-    lastModified: new Date(),
+    lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.9,
   }))
 
-  // /uslugi/[service]/[niche]
   const serviceNichePages = SERVICES.flatMap((service) =>
     NICHES.map((niche) => ({
       url: `${baseUrl}/uslugi/${service.slug}/${niche.slug}`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
-    }))
+    })),
   )
 
-  // /uslugi/[service]/[niche]/[city]
   const serviceNicheCityPages = SERVICES.flatMap((service) =>
     NICHES.flatMap((niche) =>
       CITIES.map((city) => ({
         url: `${baseUrl}/uslugi/${service.slug}/${niche.slug}/${city.slug}`,
-        lastModified: new Date(),
+        lastModified: now,
         changeFrequency: 'monthly' as const,
         priority: 0.7,
-      }))
-    )
+      })),
+    ),
   )
 
-  // /dlya/[niche]
   const nichePages = NICHES.map((niche) => ({
     url: `${baseUrl}/dlya/${niche.slug}`,
-    lastModified: new Date(),
+    lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.8,
   }))
 
-  // /dlya/[niche]/[city]
   const nicheCityPages = NICHES.flatMap((niche) =>
     CITIES.map((city) => ({
       url: `${baseUrl}/dlya/${niche.slug}/${city.slug}`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
-    }))
+    })),
   )
+
+  const casePages = CASES.map((c) => ({
+    url: `${baseUrl}/cases/${c.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
 
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
       url: `${baseUrl}/cases`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
@@ -77,5 +82,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...serviceNicheCityPages,
     ...nichePages,
     ...nicheCityPages,
+    ...casePages,
   ]
 }

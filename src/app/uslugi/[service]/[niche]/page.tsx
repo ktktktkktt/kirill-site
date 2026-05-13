@@ -6,6 +6,12 @@ import { NICHES, CITIES } from '@/lib/niches'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
 import { WorksSlider } from '@/components/WorksSlider'
+import { JsonLd } from '@/components/JsonLd'
+import {
+  getServiceJsonLd,
+  getBreadcrumbJsonLd,
+  getFAQJsonLd,
+} from '@/lib/seo'
 
 interface Props {
   params: Promise<{ service: string; niche: string }>
@@ -37,10 +43,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `заказать ${service.name.toLowerCase()} для ${niche.nameShort.toLowerCase()}`,
       `${service.name.toLowerCase()} для ${niche.nameShort.toLowerCase()} под ключ`,
     ],
+    alternates: {
+      canonical: `/uslugi/${serviceSlug}/${nicheSlug}`,
+    },
     openGraph: {
       title,
       locale: 'ru_RU',
       type: 'website',
+      url: `/uslugi/${serviceSlug}/${nicheSlug}`,
     },
   }
 }
@@ -51,8 +61,43 @@ export default async function ServiceNichePage({ params }: Props) {
   const niche = NICHES.find((n) => n.slug === nicheSlug)
   if (!service || !niche) notFound()
 
+  const url = `/uslugi/${serviceSlug}/${nicheSlug}`
+  const faqItems = [
+    {
+      q: `Чем ${service.name.toLowerCase()} для ${niche.nameShort.toLowerCase()} отличается от обычного сайта?`,
+      a: 'Структура строится вокруг конкретных болей, возражений, доказательств и сценариев выбора в этой нише.',
+    },
+    {
+      q: 'Можно ли расширить страницу под города?',
+      a: 'Да. Для этой связки доступны отдельные городские посадочные с локальными заголовками и перелинковкой.',
+    },
+    {
+      q: 'Что будет после запуска?',
+      a: 'Можно постепенно расширять семантику: добавлять города, смежные услуги, кейсы и FAQ-кластеры.',
+    },
+  ]
+  const priceMatch = service.price.match(/\d[\d\s]*/)
+  const priceNum = priceMatch ? priceMatch[0].replace(/\s/g, '') : undefined
+
   return (
     <main className="bg-bg text-light min-h-screen">
+      <JsonLd
+        data={getServiceJsonLd({
+          name: `${service.name} для ${niche.nameShort.toLowerCase()}`,
+          description: `${service.description} ${niche.pain}`,
+          url,
+          price: priceNum,
+          serviceType: service.name,
+        })}
+      />
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: 'Главная', url: '/' },
+          { name: service.name, url: `/uslugi/${serviceSlug}` },
+          { name: niche.nameShort, url },
+        ])}
+      />
+      <JsonLd data={getFAQJsonLd(faqItems)} />
       <Nav />
 
       {/* Hero */}

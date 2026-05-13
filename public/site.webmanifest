@@ -1,0 +1,14 @@
+{
+  "name": "КТ-Дизайн — Кирилл Ткаченко",
+  "short_name": "КТ-Дизайн",
+  "description": "Разработка сайтов под ключ для малого бизнеса",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "lang": "ru",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -4,6 +4,8 @@ import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
 import { CASES } from '@/lib/cases'
 import { CaseImageScroll } from '@/components/CaseImageScroll'
+import { JsonLd } from '@/components/JsonLd'
+import { getBreadcrumbJsonLd } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'Кейсы разработки сайтов — Кирилл Ткаченко',
@@ -17,6 +19,12 @@ export const metadata: Metadata = {
 export default function CasesPage() {
   return (
     <main className="bg-bg text-light min-h-screen">
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: 'Главная', url: '/' },
+          { name: 'Кейсы', url: '/cases' },
+        ])}
+      />
       <Nav />
 
       <section className="pt-40 pb-24 px-6 lg:px-12">

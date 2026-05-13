@@ -6,6 +6,12 @@ import { NICHES, CITIES } from '@/lib/niches'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
 import { WorksSlider } from '@/components/WorksSlider'
+import { JsonLd } from '@/components/JsonLd'
+import {
+  getServiceJsonLd,
+  getBreadcrumbJsonLd,
+  getFAQJsonLd,
+} from '@/lib/seo'
 
 interface Props {
   params: Promise<{ service: string; niche: string; city: string }>
@@ -65,8 +71,45 @@ export default async function ServiceNicheCityPage({ params }: Props) {
   const relatedServices = SERVICES.filter((s) => s.slug !== service.slug).slice(0, 3)
   const combinedFeatures = [...service.features, ...niche.features]
 
+  const url = `/uslugi/${serviceSlug}/${nicheSlug}/${citySlug}`
+  const faqItems = [
+    {
+      q: `Можно ли сделать ${service.name.toLowerCase()} для ${niche.nameShort.toLowerCase()} в ${city.name} удаленно?`,
+      a: 'Да. Все этапы проходят онлайн: бриф, прототип, дизайн, разработка, правки и запуск.',
+    },
+    {
+      q: 'Что нужно подготовить для старта проекта?',
+      a: 'Достаточно описать услугу, цены, примеры работ и контакты. Остальную структуру помогу собрать.',
+    },
+    {
+      q: 'Будет ли страница готова к SEO-продвижению?',
+      a: 'Да. Сразу закладываются H1, метаданные, структура блоков, быстрые CTA и внутренняя перелинковка.',
+    },
+  ]
+  const priceMatch = service.price.match(/\d[\d\s]*/)
+  const priceNum = priceMatch ? priceMatch[0].replace(/\s/g, '') : undefined
+
   return (
     <main className="bg-bg text-light min-h-screen">
+      <JsonLd
+        data={getServiceJsonLd({
+          name: `${service.name} для ${niche.nameShort.toLowerCase()} в ${city.name}`,
+          description: `${service.description} ${niche.pain}`,
+          url,
+          price: priceNum,
+          serviceType: service.name,
+          areaServed: city.name,
+        })}
+      />
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: 'Главная', url: '/' },
+          { name: service.name, url: `/uslugi/${serviceSlug}` },
+          { name: niche.nameShort, url: `/uslugi/${serviceSlug}/${nicheSlug}` },
+          { name: city.name, url },
+        ])}
+      />
+      <JsonLd data={getFAQJsonLd(faqItems)} />
       <Nav />
 
       <section className="pt-40 pb-24 px-6 lg:px-12">

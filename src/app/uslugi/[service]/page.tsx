@@ -6,6 +6,12 @@ import { NICHES } from '@/lib/niches'
 import { Nav } from '@/components/Nav'
 import { FooterCTA } from '@/components/FooterCTA'
 import { WorksSlider } from '@/components/WorksSlider'
+import { JsonLd } from '@/components/JsonLd'
+import {
+  getServiceJsonLd,
+  getBreadcrumbJsonLd,
+  getFAQJsonLd,
+} from '@/lib/seo'
 
 interface Props {
   params: Promise<{ service: string }>
@@ -30,6 +36,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `разработка ${service.name.toLowerCase()}`,
       `${service.name.toLowerCase()} для бизнеса`,
     ],
+    alternates: {
+      canonical: `/uslugi/${serviceSlug}`,
+    },
+    openGraph: {
+      title: `${service.nameFull} под ключ за ${service.time}`,
+      description: service.description,
+      type: 'website',
+      locale: 'ru_RU',
+      url: `/uslugi/${serviceSlug}`,
+    },
   }
 }
 
@@ -38,8 +54,42 @@ export default async function ServicePage({ params }: Props) {
   const service = SERVICES.find((s) => s.slug === serviceSlug)
   if (!service) notFound()
 
+  const faqItems = [
+    {
+      q: `Сколько стоит ${service.name.toLowerCase()}?`,
+      a: `Базовый ориентир — ${service.price}. Финальная оценка зависит от структуры, контента, интеграций и количества правок.`,
+    },
+    {
+      q: `За какой срок можно запустить ${service.name.toLowerCase()}?`,
+      a: `Ориентир по сроку — ${service.time}. Если материалы готовы заранее, запуск проходит быстрее.`,
+    },
+    {
+      q: 'Можно ли сразу заложить SEO?',
+      a: 'Да. Структура, метаданные, заголовки, перелинковка и посадочные под ниши закладываются на этапе проектирования.',
+    },
+  ]
+
+  const priceMatch = service.price.match(/\d[\d\s]*/)
+  const priceNum = priceMatch ? priceMatch[0].replace(/\s/g, '') : undefined
+
   return (
     <main className="bg-bg text-light min-h-screen">
+      <JsonLd
+        data={getServiceJsonLd({
+          name: service.nameFull,
+          description: service.description,
+          url: `/uslugi/${serviceSlug}`,
+          price: priceNum,
+          serviceType: service.name,
+        })}
+      />
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: 'Главная', url: '/' },
+          { name: service.name, url: `/uslugi/${serviceSlug}` },
+        ])}
+      />
+      <JsonLd data={getFAQJsonLd(faqItems)} />
       <Nav />
 
       {/* Hero */}
