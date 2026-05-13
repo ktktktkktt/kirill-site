@@ -34,11 +34,9 @@ type WinWithFlag = typeof window & { __preloaderDone?: boolean }
 // Дата открытости к проектам — пересчитывается на каждом ребилде.
 // suppressHydrationWarning ниже снимает варнинг, если клиент в другом месяце.
 function getAvailabilityLabel() {
-  const label = new Date().toLocaleString('ru-RU', {
-    month: 'long',
-    year: 'numeric',
-  })
-  return label.charAt(0).toUpperCase() + label.slice(1)
+  const d = new Date()
+  const month = d.toLocaleString('ru-RU', { month: 'long' })
+  return month.charAt(0).toUpperCase() + month.slice(1) + ' ' + d.getFullYear()
 }
 
 export function Hero() {
@@ -147,7 +145,7 @@ export function Hero() {
           className="mb-6 font-mono text-xs tracking-widest text-light/55 uppercase hero-ui"
           style={{ opacity: 0 }}
         >
-          [ Веб-разработка · SEO · ИИ · 2026 ]
+          [ Сайты · SEO · Работа напрямую · 2026 ]
         </div>
 
         <h1

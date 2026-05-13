@@ -54,7 +54,7 @@ export function Services() {
         <h2 className="font-display text-4xl lg:text-5xl text-light uppercase">
           Прайс-лист
           <br />
-          агентства
+          услуг
         </h2>
       </div>
 

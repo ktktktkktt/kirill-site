@@ -126,12 +126,18 @@ export function Cases() {
         ))}
       </div>
 
-      <div className="flex justify-center mt-12 md:mt-16">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mt-12 md:mt-16">
         <Link
           href="/cases"
           className="font-mono text-sm uppercase tracking-widest border border-border px-8 py-4 hover:border-accent hover:text-accent transition-colors duration-300"
         >
-          Все кейсы →
+          Все кейсы <ArrowRight size={14} className="inline-block ml-1" strokeWidth={2.5} />
+        </Link>
+        <Link
+          href="#contact"
+          className="bg-accent text-bg font-mono text-sm uppercase tracking-widest px-8 py-4 flex items-center gap-2 hover:bg-light transition-colors duration-300"
+        >
+          Обсудить ваш проект <ArrowRight size={14} strokeWidth={2.5} />
         </Link>
       </div>
     </section>
