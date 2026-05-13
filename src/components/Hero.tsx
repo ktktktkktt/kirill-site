@@ -144,7 +144,7 @@ export function Hero() {
       {/* ── LEFT: Text ── */}
       <div className="w-full lg:w-[55%] flex flex-col justify-center z-10 pb-16 lg:pb-0 pr-0 lg:pr-16">
         <div
-          className="mb-6 font-mono text-xs tracking-widest text-light/40 uppercase hero-ui"
+          className="mb-6 font-mono text-xs tracking-widest text-light/55 uppercase hero-ui"
           style={{ opacity: 0 }}
         >
           [ Веб-разработка · SEO · ИИ · 2026 ]
@@ -173,7 +173,7 @@ export function Hero() {
             className="block overflow-hidden whitespace-nowrap"
             style={{ opacity: 0 }}
           >
-            ЗА 7 ДНЕЙ
+            ОТ 5 ДНЕЙ
           </span>
         </h1>
 
@@ -216,7 +216,7 @@ export function Hero() {
             Получить смету за 15 минут <ArrowRight size={16} />
           </a>
           <div className="flex flex-col justify-center">
-            <span className="font-mono text-[10px] text-light/40 uppercase tracking-wider mb-1">
+            <span className="font-mono text-[10px] text-light/55 uppercase tracking-wider mb-1">
               Открыт для проектов
             </span>
             <span
@@ -234,13 +234,13 @@ export function Hero() {
           style={{ opacity: 0 }}
         >
           {[
-            { num: '80+', label: 'Проектов' },
+            { num: '50+', label: 'Проектов' },
             { num: '5+', label: 'Лет опыта' },
             { num: '12', label: 'Ниш' },
           ].map((s) => (
             <div key={s.label} className="flex flex-col gap-1">
               <span className="font-display text-2xl text-accent">{s.num}</span>
-              <span className="font-mono text-[10px] text-light/40 uppercase tracking-wider">
+              <span className="font-mono text-[10px] text-light/55 uppercase tracking-wider">
                 {s.label}
               </span>
             </div>
@@ -290,26 +290,6 @@ export function Hero() {
           ))}
         </div>
 
-        {/* Stack badge */}
-        <div
-          className="hero-ui border border-card bg-surface px-5 py-4 flex items-center justify-between"
-          style={{ opacity: 0 }}
-        >
-          <div>
-            <div className="font-mono text-[9px] text-accent uppercase tracking-widest mb-1">
-              Stack
-            </div>
-            <div className="font-mono text-xs text-light/60">
-              Next.js · React · Tailwind · GSAP · SEO
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-[10px] text-light/40 uppercase">
-              Online
-            </span>
-          </div>
-        </div>
       </div>
     </section>
   )

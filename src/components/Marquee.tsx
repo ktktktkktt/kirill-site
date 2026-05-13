@@ -20,6 +20,7 @@ export function Marquee() {
 
   useEffect(() => {
     const initGsap = async () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
       const { default: gsap } = await import('gsap')
       const el = marqueeRef.current
       if (!el) return

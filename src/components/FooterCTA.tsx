@@ -8,7 +8,7 @@ const YEAR = new Date().getFullYear()
 
 const STATS = [
   { value: 5, suffix: ' дней', label: 'срок лендинга' },
-  { value: 30, suffix: '+', label: 'проектов сдано' },
+  { value: 50, suffix: '+', label: 'проектов сдано' },
   { value: 100, suffix: '%', label: 'фикс цена' },
 ]
 
@@ -42,6 +42,7 @@ export function FooterCTA() {
     let cancelled = false
 
     const init = async () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
       const { default: gsap } = await import('gsap')
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
       gsap.registerPlugin(ScrollTrigger)
@@ -225,7 +226,7 @@ export function FooterCTA() {
         <h2
           ref={titleRef}
           data-text="ОБСУДИМ ПРОЕКТ"
-          className="font-display font-black text-[13vw] lg:text-[10vw] xl:text-[9vw] leading-none text-light uppercase tracking-tight whitespace-nowrap"
+          className="font-display font-black text-[10.5vw] lg:text-[9vw] xl:text-[8vw] leading-none text-light uppercase tracking-tight whitespace-nowrap"
         >
           ОБСУДИМ ПРОЕКТ
         </h2>
@@ -259,7 +260,7 @@ export function FooterCTA() {
                   </span>
                   <span>{stat.suffix}</span>
                 </div>
-                <div className="font-mono text-[10px] text-light/40 uppercase tracking-widest leading-tight">
+                <div className="font-mono text-[10px] text-light/55 uppercase tracking-widest leading-tight">
                   {stat.label}
                 </div>
               </div>

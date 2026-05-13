@@ -37,6 +37,7 @@ export function AITemplates() {
   useEffect(() => {
     // Only init horizontal scroll GSAP on desktop
     if (window.innerWidth < 768) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const initGsap = async () => {
       const { default: gsap } = await import('gsap')
@@ -95,7 +96,7 @@ export function AITemplates() {
       <div className="py-12 md:py-0 md:min-h-screen md:flex md:flex-col md:justify-center">
         <div className="px-6 lg:px-12 mb-8 md:absolute md:top-12 md:left-6 lg:md:left-12 md:z-10">
           <div className="font-mono text-xs text-accent uppercase tracking-widest mb-3 md:mb-4">
-            [ 05 — ИИ-шаблоны ]
+            [ ИИ-шаблоны ]
           </div>
           <h2 className="font-display text-2xl lg:text-4xl text-light uppercase">
             Примеры для ниш

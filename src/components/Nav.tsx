@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import { SERVICES } from '@/lib/services'
 import { NICHES } from '@/lib/niches'
 
@@ -126,9 +127,9 @@ export function Nav() {
         <div className="flex items-center gap-3">
           <a
             href="#contact"
-            className="hidden md:inline-flex font-mono text-xs uppercase tracking-widest bg-accent text-bg px-5 py-3 hover:bg-light transition-colors duration-200"
+            className="hidden md:inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest bg-accent text-bg px-5 py-3 hover:bg-light transition-colors duration-200"
           >
-            Написать →
+            Написать <ArrowRight size={14} strokeWidth={2.5} />
           </a>
 
           {/* Burger — only render on client to avoid hydration issues */}
@@ -236,10 +237,10 @@ export function Nav() {
           <div className="px-6 pb-8">
             <a
               href="#contact"
-              className="block w-full text-center font-mono text-sm uppercase tracking-widest bg-accent text-bg py-4 hover:bg-light transition-colors duration-200"
+              className="flex items-center justify-center gap-2 w-full font-mono text-sm uppercase tracking-widest bg-accent text-bg py-4 hover:bg-light transition-colors duration-200"
               onClick={closeMobileMenu}
             >
-              Написать →
+              Написать <ArrowRight size={16} strokeWidth={2.5} />
             </a>
           </div>
         </div>

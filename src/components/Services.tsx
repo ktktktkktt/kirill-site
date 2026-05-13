@@ -49,7 +49,7 @@ export function Services() {
     <section id="услуги" ref={containerRef} className="py-24 px-6 lg:px-12 bg-bg">
       <div className="mb-16">
         <div className="font-mono text-xs text-accent uppercase tracking-widest mb-4">
-          [ 02 — Услуги ]
+          [ Услуги ]
         </div>
         <h2 className="font-display text-4xl lg:text-5xl text-light uppercase">
           Прайс-лист

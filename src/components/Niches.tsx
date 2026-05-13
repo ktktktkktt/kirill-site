@@ -95,7 +95,7 @@ export function Niches() {
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 md:mb-16 gap-4 md:gap-6">
         <div>
           <div className="font-mono text-xs text-accent uppercase tracking-widest mb-4">
-            [ 03 — Ниши ]
+            [ Ниши ]
           </div>
           <h2 className="font-display text-4xl lg:text-5xl text-light uppercase leading-tight">
             Для каких
@@ -110,7 +110,7 @@ export function Niches() {
 
       <div
         ref={gridRef}
-        className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-px bg-border"
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px bg-border"
       >
         {NICHES.map((niche, i) => {
           const Icon = ICON_MAP[niche.icon]
@@ -133,7 +133,7 @@ export function Niches() {
                 )}
               </div>
               <div>
-                <h3 className="font-display text-xs md:text-sm lg:text-base text-light uppercase leading-snug mb-2 md:mb-3">
+                <h3 className="font-display text-sm md:text-base lg:text-lg text-light uppercase leading-snug mb-2 md:mb-3 break-words hyphens-auto">
                   {niche.nameShort}
                 </h3>
                 <div className="font-mono text-[9px] md:text-[10px] text-light/20 group-hover:text-accent transition-colors duration-300 flex items-center gap-1 uppercase tracking-wider">
