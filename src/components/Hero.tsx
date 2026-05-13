@@ -45,6 +45,7 @@ export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
   const title1Ref = useRef<HTMLSpanElement>(null)
   const title2Ref = useRef<HTMLSpanElement>(null)
+  const title3Ref = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     let ctx: any = null
@@ -57,7 +58,8 @@ export function Hero() {
         element.innerHTML = ''
         text.split('').forEach((char) => {
           const span = document.createElement('span')
-          span.innerText = char === ' ' ? ' ' : char
+          //   — неразрывный пробел: inline-block иначе схлопнул бы обычный пробел до нулевой ширины.
+          span.innerText = char === ' ' ? ' ' : char
           span.style.display = 'inline-block'
           span.style.transform = 'translateY(100%)'
           span.style.opacity = '0'
@@ -67,13 +69,17 @@ export function Hero() {
       }
 
       ctx = gsap.context(() => {
-        if (title1Ref.current && title2Ref.current) {
+        if (title1Ref.current && title2Ref.current && title3Ref.current) {
           const chars1 = splitText(title1Ref.current)
           const chars2 = splitText(title2Ref.current)
-          gsap.set([title1Ref.current, title2Ref.current], { opacity: 1 })
+          const chars3 = splitText(title3Ref.current)
+          gsap.set(
+            [title1Ref.current, title2Ref.current, title3Ref.current],
+            { opacity: 1 },
+          )
 
           const tl = gsap.timeline()
-          tl.to([...chars1, ...chars2], {
+          tl.to([...chars1, ...chars2, ...chars3], {
             y: 0,
             opacity: 1,
             duration: 0.8,
@@ -145,22 +151,29 @@ export function Hero() {
         </div>
 
         <h1
-          className="font-display font-black text-5xl md:text-6xl lg:text-[5.2vw] leading-[0.9] text-light uppercase mb-8 flex flex-col"
+          className="font-display font-black text-[9vw] sm:text-[8vw] md:text-[7vw] lg:text-[5.8vw] xl:text-[5vw] 2xl:text-[4.5vw] leading-[0.92] tracking-tight text-light uppercase mb-8 flex flex-col"
           style={{ clipPath: 'polygon(0 0, 100% 0, 100% 110%, 0 110%)' }}
         >
           <span
             ref={title1Ref}
-            className="block overflow-hidden"
+            className="block overflow-hidden whitespace-nowrap"
             style={{ opacity: 0 }}
           >
             РАЗРАБОТКА
           </span>
           <span
             ref={title2Ref}
-            className="block overflow-hidden"
+            className="block overflow-hidden whitespace-nowrap"
             style={{ opacity: 0 }}
           >
-            САЙТОВ ЗА 7 ДНЕЙ
+            САЙТОВ
+          </span>
+          <span
+            ref={title3Ref}
+            className="block overflow-hidden whitespace-nowrap"
+            style={{ opacity: 0 }}
+          >
+            ЗА 7 ДНЕЙ
           </span>
         </h1>
 
