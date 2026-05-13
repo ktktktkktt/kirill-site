@@ -129,6 +129,10 @@ export function FooterCTA() {
         <span>Россия · Самозанятый</span>
         <span className="hidden lg:inline">·</span>
         <span>+7 986 001 06 65</span>
+        <span className="hidden lg:inline">·</span>
+        <a href="/privacy" className="hover:text-accent transition-colors">
+          Политика конфиденциальности
+        </a>
       </div>
     </section>
   )

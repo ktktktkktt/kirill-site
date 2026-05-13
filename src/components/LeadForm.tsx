@@ -15,6 +15,7 @@ export function LeadForm({ source = 'site', onSuccess, compact }: Props) {
   const [name, setName] = useState('')
   const [contact, setContact] = useState('')
   const [message, setMessage] = useState('')
+  const [consent, setConsent] = useState(false)
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState<string | null>(null)
 
@@ -24,6 +25,11 @@ export function LeadForm({ source = 'site', onSuccess, compact }: Props) {
 
     if (!contact.trim()) {
       setError('Укажи телеграм, телефон или почту — куда тебе ответить')
+      return
+    }
+
+    if (!consent) {
+      setError('Для отправки заявки необходимо согласие на обработку данных')
       return
     }
 
@@ -121,6 +127,28 @@ export function LeadForm({ source = 'site', onSuccess, compact }: Props) {
           />
         </label>
       )}
+
+      <label className="flex items-start gap-3 cursor-pointer group">
+        <input
+          type="checkbox"
+          checked={consent}
+          onChange={(e) => setConsent(e.target.checked)}
+          className="mt-0.5 flex-shrink-0 w-4 h-4 accent-[var(--color-accent)] cursor-pointer"
+        />
+        <span className="font-mono text-[10px] text-light/40 leading-relaxed group-hover:text-light/60 transition-colors">
+          Отправляя заявку, я соглашаюсь с{' '}
+          <a
+            href="/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent hover:underline"
+            onClick={(e) => e.stopPropagation()}
+          >
+            политикой конфиденциальности
+          </a>{' '}
+          и даю согласие на обработку персональных данных
+        </span>
+      </label>
 
       {error && (
         <div className="flex items-start gap-2 font-mono text-xs text-accent">
