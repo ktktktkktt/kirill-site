@@ -98,6 +98,18 @@ export function Testimonials() {
           </article>
         ))}
       </div>
+
+      <div className="mt-10 md:mt-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-border pt-6">
+        <p className="font-mono text-xs text-light/55 uppercase tracking-wider leading-relaxed">
+          Контакты клиентов даю по запросу — можно связаться и расспросить лично
+        </p>
+        <a
+          href="#contact"
+          className="font-mono text-xs uppercase tracking-widest text-accent hover:text-light transition-colors duration-300 whitespace-nowrap"
+        >
+          Запросить контакты →
+        </a>
+      </div>
     </section>
   )
 }
